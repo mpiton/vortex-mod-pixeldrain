@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "value": "rate_limit",
+  "message": "Too many requests, slow down"
+}

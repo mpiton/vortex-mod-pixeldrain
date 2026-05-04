@@ -1,0 +1,13 @@
+[plugin]
+name = "vortex-mod-pixeldrain"
+version = "1.0.0"
+category = "hoster"
+author = "vortex-community"
+description = "Pixeldrain free hoster — direct download via the public JSON API"
+license = "GPL-3.0"
+min_vortex_version = "0.1.0"
+
+[capabilities]
+# Pixeldrain exposes a clean JSON API; the plugin only needs the host's
+# `http_request` host function to fetch metadata and resolve direct URLs.
+http = true

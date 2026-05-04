@@ -1,0 +1,18 @@
+{
+  "id": "abc123def456",
+  "name": "archive.zip",
+  "size": 1572864,
+  "views": 0,
+  "bandwidth_used": 0,
+  "downloads": 0,
+  "date_upload": "2026-01-01T00:00:00.000Z",
+  "date_last_view": "2026-01-01T00:00:00.000Z",
+  "mime_type": "application/zip",
+  "thumbnail_href": "/file/abc123def456/thumbnail",
+  "hash_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "can_edit": false,
+  "can_download": true,
+  "show_ads": false,
+  "allow_video_player": false,
+  "download_speed_limit": 0
+}
