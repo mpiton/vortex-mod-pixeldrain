@@ -6,7 +6,7 @@
 //! here. The stub `http_request` returns an HTTP-like JSON envelope so
 //! the WASM module loads without unresolved imports.
 //!
-//! Skipped unless the WASM artifact is present at
+//! Requires the WASM artifact at
 //! `target/wasm32-wasip1/release/vortex_mod_pixeldrain.wasm`. To produce
 //! it:
 //!
@@ -20,9 +20,14 @@ use extism::{Function, UserData, Val, PTR};
 
 const WASM_REL_PATH: &str = "target/wasm32-wasip1/release/vortex_mod_pixeldrain.wasm";
 
-fn wasm_path() -> Option<PathBuf> {
-    let p = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(WASM_REL_PATH);
-    p.exists().then_some(p)
+fn wasm_path() -> PathBuf {
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(WASM_REL_PATH);
+    assert!(
+        path.is_file(),
+        "missing release WASM artifact at {}; run `cargo build --target wasm32-wasip1 --release` first",
+        path.display()
+    );
+    path
 }
 
 fn stub_http_request() -> Function {
@@ -45,18 +50,10 @@ fn load_plugin(path: &PathBuf) -> extism::Plugin {
     extism::Plugin::new(&manifest, [stub_http_request()], true).expect("load wasm")
 }
 
-/// Resolve the WASM artefact path or skip the calling test with a build hint.
+/// Require the release WASM artefact and report how to build it when missing.
 macro_rules! require_wasm {
     () => {
-        match wasm_path() {
-            Some(p) => p,
-            None => {
-                eprintln!(
-                    "skipping: build with `cargo build --target wasm32-wasip1 --release` first"
-                );
-                return;
-            }
-        }
+        wasm_path()
     };
 }
 
